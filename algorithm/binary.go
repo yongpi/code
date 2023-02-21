@@ -1,6 +1,6 @@
 package algorithm
 
-func binary(nums []int, target int) int {
+func Binary(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 
 	for left <= right {
@@ -20,7 +20,7 @@ func binary(nums []int, target int) int {
 	return -1
 }
 
-func binaryMax(nums []int, target int) int {
+func BinaryMax(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 
 	for left <= right {
@@ -40,7 +40,7 @@ func binaryMax(nums []int, target int) int {
 	return left
 }
 
-func binaryMin(nums []int, target int) int {
+func BinaryMin(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 
 	for left <= right {
