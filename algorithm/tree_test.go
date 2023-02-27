@@ -47,3 +47,7 @@ func TestPostOrder(t *testing.T) {
 func TestPostOrder2(t *testing.T) {
 	PostOrder2(orderTree)
 }
+
+func TestLevelOrder(t *testing.T) {
+	LevelOrder(orderTree)
+}

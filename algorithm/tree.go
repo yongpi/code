@@ -99,3 +99,26 @@ func PostOrder2(root *TreeNode) {
 	PostOrder2(root.Right)
 	fmt.Println(root.Value)
 }
+
+func LevelOrder(root *TreeNode) {
+	stack := make([]*TreeNode, 0)
+	stack = append(stack, root)
+
+	for len(stack) > 0 {
+		sl := len(stack)
+		for i := 0; i < sl; i++ {
+			node := stack[i]
+			fmt.Println(node.Value)
+
+			if node.Left != nil {
+				stack = append(stack, node.Left)
+			}
+
+			if node.Right != nil {
+				stack = append(stack, node.Right)
+			}
+		}
+
+		stack = stack[sl:]
+	}
+}
