@@ -5,53 +5,42 @@ import (
 	"testing"
 )
 
-func TestSamePart(t *testing.T) {
+func TestAdd(t *testing.T) {
 	l1 := &Link{
-		Value: 0,
+		Value: 1,
 		Next: &Link{
 			Value: 2,
 			Next: &Link{
-				Value: 4,
+				Value: 3,
 				Next: &Link{
-					Value: 5,
-					Next:  nil,
-				},
-			},
-		},
-	}
-
-	l2 := &Link{
-		Value: -1,
-		Next: &Link{
-			Value: 2,
-			Next: &Link{
-				Value: 4,
-			},
-		},
-	}
-
-	SamePart(l1, l2)
-}
-
-func TestDeleteSameValue(t *testing.T) {
-	l1 := &Link{
-		Value: 0,
-		Next: &Link{
-			Value: 0,
-			Next: &Link{
-				Value: 4,
-				Next: &Link{
-					Value: 5,
+					Value: 4,
 					Next: &Link{
-						Value: 5,
-						Next:  nil,
+						Value:  5,
+						Next:   nil,
+						Before: nil,
 					},
 				},
 			},
 		},
 	}
 
-	ans := DeleteSameValue(l1)
+	l2 := &Link{
+		Value: 1,
+		Next: &Link{
+			Value: 2,
+			Next: &Link{
+				Value: 3,
+				Next: &Link{
+					Value: 4,
+					Next: &Link{
+						Value: 5,
+					},
+				},
+			},
+		},
+	}
+
+	ans := Add(l1, l2)
 	for ans != nil {
 		fmt.Println(ans.Value)
 		ans = ans.Next
