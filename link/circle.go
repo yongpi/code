@@ -25,3 +25,30 @@ func CircleDelete(head *Link, m int) *Link {
 
 	return head
 }
+
+func CircleInsert(head *Link, value int) *Link {
+	end := head
+	for end.Next != head {
+		end = end.Next
+	}
+
+	if value > head.Value && value < end.Value {
+		cur := head
+		for cur != end {
+			if cur.Value < value && cur.Next.Value >= value {
+				next := cur.Next
+				cur.Next = &Link{Value: value}
+				cur.Next.Next = next
+				break
+			}
+			cur = cur.Next
+		}
+	}
+
+	if value <= head.Value || value >= end.Value {
+		end.Next = &Link{Value: value}
+		end.Next.Next = head
+	}
+
+	return head
+}
