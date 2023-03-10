@@ -88,3 +88,65 @@ func isBTS(head, node *Tree, value int) bool {
 
 	return isBTS(head.Left, node, value)
 }
+
+func IsBTSNormal(root *Tree) bool {
+	var pre *Tree
+	stack := make([]*Tree, 0)
+	cur := root
+
+	for cur != nil || len(stack) > 0 {
+		if cur != nil {
+			stack = append(stack, cur)
+			cur = cur.Left
+			continue
+		}
+
+		node := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if pre == nil {
+			pre = node
+		} else {
+			if pre.Value > node.Value {
+				return false
+			}
+		}
+
+		cur = node.Right
+	}
+
+	return true
+}
+
+func IsBTSMorris(root *Tree) bool {
+	cur := root
+	var mostRight, pre *Tree
+
+	for cur != nil {
+		mostRight = cur.Left
+		if mostRight != nil {
+			for mostRight.Right != nil && mostRight.Right != cur {
+				mostRight = mostRight.Right
+			}
+
+			if mostRight.Right == nil {
+				mostRight.Right = cur
+				cur = cur.Left
+				continue
+			}
+
+			mostRight.Right = nil
+		}
+
+		if pre == nil {
+			pre = cur
+		} else {
+			if pre.Value > cur.Value {
+				return false
+			}
+		}
+
+		cur = cur.Right
+	}
+
+	return true
+}
