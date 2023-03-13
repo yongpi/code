@@ -3,8 +3,8 @@ package tree
 import "fmt"
 
 type Tree struct {
-	Left, Right *Tree
-	Value       int
+	Left, Right, Parent *Tree
+	Value               int
 }
 
 func PrintBoundary(root *Tree) {

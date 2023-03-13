@@ -20,3 +20,17 @@ func BuildPost(nums []int) *Tree {
 
 	return root
 }
+
+func BuildSearchMid(nums []int) *Tree {
+	if len(nums) == 0 {
+		return nil
+	}
+
+	index := len(nums) / 2
+
+	root := &Tree{Value: nums[index]}
+	root.Left = BuildSearchMid(nums[:index])
+	root.Right = BuildSearchMid(nums[index+1:])
+
+	return root
+}
