@@ -34,3 +34,41 @@ func BuildSearchMid(nums []int) *Tree {
 
 	return root
 }
+
+func BuildPostList(pre, mid []int) []int {
+	post := make([]int, len(pre))
+	stack := make([]int, 0)
+	for key, _ := range pre {
+		stack = append(stack, key)
+	}
+
+	makePostList(pre, mid, post, stack)
+
+	return post
+}
+
+func makePostList(pre, mid, post, stack []int) []int {
+	if len(pre) == 0 || len(mid) == 0 || len(stack) == 0 {
+		return stack
+	}
+
+	root := pre[0]
+	i := stack[len(stack)-1]
+	stack = stack[:len(stack)-1]
+	post[i] = root
+
+	var ml int
+	for _, value := range mid {
+		if value != root {
+			ml++
+		}
+		if value == root {
+			break
+		}
+	}
+
+	stack = makePostList(pre[1+ml:], mid[ml+1:], post, stack)
+	stack = makePostList(pre[1:ml+1], mid[:ml], post, stack)
+
+	return stack
+}
