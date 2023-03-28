@@ -1,5 +1,7 @@
 package dynamic
 
+import "fmt"
+
 func MinCash(cash []int, money int) int {
 	if len(cash) == 0 || money <= -1 {
 		return -1
@@ -73,26 +75,36 @@ func MinCashDynamic(cash []int, money int) int {
 }
 
 func AllCash(cash []int, money int) int {
-	return processAllCash(cash, 0, money)
+	hm := make(map[string]int)
+	return processAllCash(cash, 0, money, hm)
 }
 
-func processAllCash(cash []int, i, money int) int {
-	if money < 0 {
-		return 0
-	}
-
-	if money == 0 {
-		return 1
-	}
-
-	if i == len(cash) {
-		return 0
-	}
-
-	size := money / cash[i]
+func processAllCash(cash []int, i, money int, hm map[string]int) int {
 	var ans int
-	for k := 0; k <= size; k++ {
-		ans += processCash(cash, i+1, money-k*cash[i])
+	if money == 0 {
+		ans = 1
+	}
+
+	if i < len(cash) && money > 0 {
+		size := money / cash[i]
+		for k := 0; k <= size; k++ {
+			value := hm[fmt.Sprintf("%d-%d", i+1, money-k*cash[i])]
+			if value == 0 {
+				ans += processCash(cash, i+1, money-k*cash[i])
+				continue
+			}
+
+			if value == -1 {
+				continue
+			}
+			ans += value
+		}
+	}
+
+	if ans != 0 {
+		hm[fmt.Sprintf("%d-%d", i, money)] = ans
+	} else {
+		hm[fmt.Sprintf("%d-%d", i, money)] = -1
 	}
 
 	return ans
@@ -101,6 +113,7 @@ func processAllCash(cash []int, i, money int) int {
 func AllCashDynamic(cash []int, money int) int {
 	n := len(cash)
 	dp := make([][]int, n)
+
 	for i := 0; i < n; i++ {
 		dp[i] = make([]int, money+1)
 		dp[i][0] = 1
@@ -112,21 +125,14 @@ func AllCashDynamic(cash []int, money int) int {
 		}
 	}
 
-	for j := 1; j <= money; j++ {
-		for i := n - 1; i > 0; i-- {
-			dp[i][j] = -1
-			if i < n-1 && dp[i+1][j] != -1 {
-				dp[i][j] = dp[i+1][j]
-			}
-
-			rest := j - cash[i]
-			if j >= cash[i] && dp[i][rest] != -1 {
-				if dp[i][j] != -1 {
-					dp[i][j] += dp[i][rest] + 1
-				}
+	for i := 1; i < n; i++ {
+		for j := 1; j <= money; j++ {
+			dp[i][j] = dp[i-1][j]
+			if j >= cash[i] {
+				dp[i][j] += dp[i][j-cash[i]]
 			}
 		}
 	}
 
-	return dp[0][money]
+	return dp[n-1][money]
 }
