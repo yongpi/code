@@ -8,3 +8,7 @@ import (
 func TestMinIncrList(t *testing.T) {
 	fmt.Println(MinIncrList([]int{2, 1, 5, 3, 6, 4, 8, 9, 7}))
 }
+
+func TestMaxXORSubList(t *testing.T) {
+	fmt.Println(MaxXORSubList([]int{3, 2, 1, 9, 0, 7, 0, 2, 1, 3}))
+}

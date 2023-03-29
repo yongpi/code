@@ -1,5 +1,13 @@
 package dynamic
 
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+
+	return b
+}
+
 func MinSumMatrix(matrix [][]int) int {
 	m := len(matrix)
 	if m == 0 {
@@ -58,10 +66,30 @@ func MinSumMatrix2(matrix [][]int) int {
 	return dp[n-1]
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
+func Dragons(matrix [][]int) int {
+	n := len(matrix)
+	m := len(matrix[0])
+
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, m)
+	}
+	dp[n-1][m-1] = max(1-matrix[n-1][m-1], 1)
+
+	for i := n - 2; i >= 0; i-- {
+		dp[i][m-1] = max(dp[i+1][m-1]-matrix[i][m-1], 1)
 	}
 
-	return b
+	for i := m - 2; i >= 0; i-- {
+		dp[n-1][i] = max(dp[n-1][i+1]-matrix[n-1][i], 1)
+	}
+
+	for i := n - 2; i >= 0; i-- {
+		for j := n - 2; j >= 0; j-- {
+			dp[i][j] = max(dp[i+1][j]-matrix[i][j], 1)
+			dp[i][j] = min(max(dp[i][j+1]-matrix[i][j], 1), dp[i][j])
+		}
+	}
+
+	return dp[0][0]
 }

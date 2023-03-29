@@ -41,3 +41,32 @@ func getDp(nums []int) []int {
 
 	return dp
 }
+
+func MaxXORSubList(nums []int) int {
+	n := len(nums)
+	dp := make([]int, n)
+	if nums[0] == 0 {
+		dp[0] = 1
+	}
+
+	hm := make(map[int]int)
+	hm[0] = -1
+
+	value := nums[0]
+	for i := 1; i < n; i++ {
+		value ^= nums[i]
+		k, ok := hm[value]
+		if ok {
+			if k == -1 {
+				dp[i] = 1
+			} else {
+				dp[i] = dp[k] + 1
+			}
+		}
+
+		dp[i] = max(dp[i], dp[i-1])
+		hm[value] = i
+	}
+
+	return dp[n-1]
+}

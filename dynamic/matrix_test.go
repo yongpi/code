@@ -16,3 +16,13 @@ func TestMinSumMatrix(t *testing.T) {
 	fmt.Println(MinSumMatrix(matrix))
 	fmt.Println(MinSumMatrix2(matrix))
 }
+
+func TestDragons(t *testing.T) {
+	matrix := [][]int{
+		{-2, -3, 3},
+		{-5, -10, 1},
+		{0, 30, -5},
+	}
+
+	fmt.Println(Dragons(matrix))
+}
