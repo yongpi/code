@@ -70,3 +70,24 @@ func MaxXORSubList(nums []int) int {
 
 	return dp[n-1]
 }
+
+func FirstOrSecond(nums []int) int {
+	n := len(nums)
+	f := make([][]int, n)
+	s := make([][]int, n)
+
+	for i := 0; i < n; i++ {
+		f[i] = make([]int, n)
+		s[i] = make([]int, n)
+		f[i][i] = nums[i]
+	}
+
+	for j := 1; j < n; j++ {
+		for i := j - 1; i >= 0; i-- {
+			f[i][j] = max(nums[i]+s[i+1][j], nums[j]+s[i][j-1])
+			s[i][j] = max(f[i+1][j], f[i][j-1])
+		}
+	}
+
+	return max(f[0][n-1], s[0][n-1])
+}
