@@ -91,3 +91,32 @@ func FirstOrSecond(nums []int) int {
 
 	return max(f[0][n-1], s[0][n-1])
 }
+
+func IncrList(nums []int) []int {
+	hm := make(map[int]struct{})
+	for _, num := range nums {
+		hm[num] = struct{}{}
+	}
+
+	var count int
+	var ans []int
+	for i := 0; i < len(nums); i++ {
+		list := []int{nums[i]}
+		num := nums[i]
+		for {
+			_, ok := hm[num+1]
+			if !ok {
+				break
+			}
+			list = append(list, num+1)
+			num = num + 1
+		}
+
+		if count < len(list) {
+			ans = list
+			count = len(list)
+		}
+	}
+
+	return ans
+}

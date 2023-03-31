@@ -16,3 +16,7 @@ func TestMaxXORSubList(t *testing.T) {
 func TestFirstOrSecond(t *testing.T) {
 	fmt.Println(FirstOrSecond([]int{1, 2, 100, 4}))
 }
+
+func TestIncrList(t *testing.T) {
+	fmt.Println(IncrList([]int{100, 4, 200, 1, 3, 2}))
+}
