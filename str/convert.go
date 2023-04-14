@@ -34,6 +34,7 @@ func ConvertMinDistance(start, end string, list []string) int {
 				continue
 			}
 
+			exist[n] = struct{}{}
 			distance[n] = distance[value] + 1
 			stack = append(stack, n)
 		}
@@ -41,6 +42,7 @@ func ConvertMinDistance(start, end string, list []string) int {
 
 	count := 0
 	stack = stack[:0]
+	stack = append(stack, start)
 
 	for len(stack) > 0 {
 		ls := len(stack)
@@ -57,6 +59,7 @@ func ConvertMinDistance(start, end string, list []string) int {
 			}
 		}
 
+		count++
 		stack = stack[ls:]
 	}
 
