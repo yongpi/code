@@ -48,3 +48,32 @@ func PickMin(data string) string {
 
 	return string(ans)
 }
+
+func PickMaxSub(data string) string {
+	hm := make(map[byte]int)
+	var i, j, count int
+	var ans string
+
+	for j < len(data) {
+		item := data[j]
+		if hm[item] == 0 {
+			hm[item]++
+			j++
+			continue
+		}
+
+		if j-i > count {
+			ans = data[i:j]
+			count = j - i
+		}
+
+		for hm[item] >= 1 && i < j {
+			hm[data[i]]--
+			i++
+		}
+
+		j++
+	}
+
+	return ans
+}
