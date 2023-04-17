@@ -12,3 +12,7 @@ func TestPickMin(t *testing.T) {
 func TestPickMaxSub(t *testing.T) {
 	fmt.Println(PickMaxSub("abcdefjj"))
 }
+
+func TestPickMinContainSub(t *testing.T) {
+	fmt.Println(PickMinContainSub("abcdea", "eac"))
+}

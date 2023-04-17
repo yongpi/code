@@ -77,3 +77,51 @@ func PickMaxSub(data string) string {
 
 	return ans
 }
+
+func PickMinContainSub(data, sub string) string {
+	sm := make(map[byte]int)
+	for i := 0; i < len(sub); i++ {
+		item := sub[i]
+		sm[item]++
+	}
+
+	ans := data
+	var i, j int
+	hm := make(map[byte]int)
+	count := len(sm)
+
+	for j < len(data) {
+		item := data[j]
+		hm[item]++
+		if hm[item] == sm[item] {
+			count--
+		}
+
+		if count > 0 {
+			j++
+			continue
+		}
+
+		if len(ans) > j-i+1 {
+			ans = data[i : j+1]
+		}
+
+		for i <= j {
+			tmp := data[i]
+			hm[tmp]--
+			i++
+			if hm[tmp] < sm[tmp] {
+				count++
+				break
+			}
+
+			if len(ans) > j-i+1 {
+				ans = data[i : j+1]
+			}
+		}
+
+		j++
+	}
+
+	return ans
+}
