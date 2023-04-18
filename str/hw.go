@@ -47,3 +47,39 @@ func BecomeHW(data string) string {
 
 	return string(ans)
 }
+
+func MinCutHw(data string) int {
+	n := len(data)
+	hw := make([][]bool, n)
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		hw[i] = make([]bool, n)
+		dp[i] = make([]int, n)
+		hw[i][i] = true
+	}
+
+	for j := 1; j < n; j++ {
+		for i := j - 1; i >= 0; i-- {
+			if data[i] == data[j] {
+				hw[i][j] = hw[i+1][j-1]
+			}
+		}
+	}
+
+	for j := 1; j < n; j++ {
+		for i := j - 1; i >= 0; i-- {
+			if hw[i][j] {
+				dp[i][j] = 0
+				continue
+			}
+			dp[i][j] = j - i
+			for k := i; k < j; k++ {
+				if hw[i][k] {
+					dp[i][j] = min(dp[i][j], dp[k+1][j]+1)
+				}
+			}
+		}
+	}
+
+	return dp[0][n-1]
+}
