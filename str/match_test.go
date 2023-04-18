@@ -6,5 +6,5 @@ import (
 )
 
 func TestMatchStr(t *testing.T) {
-	fmt.Println(MatchStr("abc", ".*"))
+	fmt.Println(MatchStr("acc", "ac*"))
 }

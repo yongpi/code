@@ -24,9 +24,9 @@ func MatchStr(data, sub string) bool {
 				dp[i][j] = dp[i][j] || dp[i-1][j-1]
 			}
 
-			if sub[j-1] == '*' {
+			if sub[j-1] == '*' && j >= 2 {
 				dp[i][j] = dp[i][j-2]
-				if j >= 2 && isEq(data[i-1], sub[j-2]) {
+				if isEq(data[i-1], sub[j-2]) {
 					dp[i][j] = dp[i][j] || dp[i-1][j]
 				}
 			}
