@@ -1,7 +1,7 @@
 package str
 
 type NumNode struct {
-	Child [2]*NumNode
+	Child map[int32]*NumNode
 }
 
 func InsertNum(root *NumNode, num int32) {
@@ -13,8 +13,7 @@ func InsertNum(root *NumNode, num int32) {
 	for i := 31; i >= 0; i-- {
 		item := (num >> i) & 1
 		if child[item] == nil {
-			child[item] = &NumNode{Child: [2]*NumNode{}}
-			continue
+			child[item] = &NumNode{Child: make(map[int32]*NumNode)}
 		}
 
 		child = child[item].Child
@@ -33,15 +32,12 @@ func MaxXOR(root *NumNode, num int32) int32 {
 		if item == 1 && child[0] != nil {
 			res += 1 << i
 			child = child[0].Child
-		}
-		if item == 1 && child[0] == nil {
+		} else if item == 1 && child[0] == nil {
 			child = child[1].Child
-		}
-		if item == 0 && child[1] != nil {
+		} else if item == 0 && child[1] != nil {
 			res += 1 << i
 			child = child[1].Child
-		}
-		if item == 0 && child[1] == nil {
+		} else if item == 0 && child[1] == nil {
 			child = child[0].Child
 		}
 	}
@@ -58,7 +54,7 @@ func max(a, b int32) int32 {
 }
 
 func SubMaxXOR(nums []int32) int32 {
-	root := &NumNode{Child: [2]*NumNode{}}
+	root := &NumNode{Child: make(map[int32]*NumNode)}
 	InsertNum(root, 0)
 
 	var ans, xor int32
