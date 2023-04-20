@@ -29,22 +29,16 @@ func MaxXOR(root *NumNode, num int32) int32 {
 	child := root.Child
 	for i := 31; i >= 0; i-- {
 		item := (num >> i) & 1
-		if i == 31 && child[0] != nil {
-			child = child[0].Child
-			continue
+		best := item ^ 1
+		if i == 31 {
+			best = item
+		}
+		if _, ok := child[best]; !ok {
+			best = best ^ 1
 		}
 
-		if item == 1 && child[0] != nil {
-			res += 1 << i
-			child = child[0].Child
-		} else if item == 1 && child[0] == nil {
-			child = child[1].Child
-		} else if item == 0 && child[1] != nil {
-			res += 1 << i
-			child = child[1].Child
-		} else if item == 0 && child[1] == nil {
-			child = child[0].Child
-		}
+		res |= (item ^ best) << i
+		child = child[best].Child
 	}
 
 	return res

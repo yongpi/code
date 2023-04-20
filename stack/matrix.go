@@ -71,3 +71,29 @@ func maxArea(nums []int) int {
 
 	return area
 }
+
+func IslandsNum(islands [][]int) int {
+	var ans int
+	for i := 0; i < len(islands); i++ {
+		for j := 0; j < len(islands[i]); j++ {
+			if islands[i][j] == 1 {
+				ans++
+				Influence(i, j, islands)
+			}
+		}
+	}
+
+	return ans
+}
+
+func Influence(i, j int, islands [][]int) {
+	if i >= len(islands) || j >= len(islands[0]) || i < 0 || j < 0 || islands[i][j] != 1 {
+		return
+	}
+
+	islands[i][j] = 2
+	Influence(i+1, j, islands)
+	Influence(i-1, j, islands)
+	Influence(i, j+1, islands)
+	Influence(i, j-1, islands)
+}
