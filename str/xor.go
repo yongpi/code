@@ -29,6 +29,11 @@ func MaxXOR(root *NumNode, num int32) int32 {
 	child := root.Child
 	for i := 31; i >= 0; i-- {
 		item := (num >> i) & 1
+		if i == 31 && child[0] != nil {
+			child = child[0].Child
+			continue
+		}
+
 		if item == 1 && child[0] != nil {
 			res += 1 << i
 			child = child[0].Child
