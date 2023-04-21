@@ -13,5 +13,10 @@ func TestCirclePrint(t *testing.T) {
 }
 
 func TestTupleNums(t *testing.T) {
-	TupleNums([]int{-8, -4, -3, 0, 1, 2, 2, 4, 5, 8, 8, 9}, 10)
+	nums := []int{-8, -4, -3, 0, 1, 2, 2, 4, 5, 8, 8, 9}
+	TupleNums(nums, 10, 0, len(nums)-1)
+}
+
+func TestTriadNums(t *testing.T) {
+	TriadNums([]int{-8, -4, -3, 0, 1, 2, 2, 4, 5, 8, 8, 9}, 10)
 }
