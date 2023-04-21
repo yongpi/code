@@ -1,6 +1,8 @@
 package list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func CirclePrint(matrix [][]int) {
 	topVertical, downVertical := 0, len(matrix)-1
@@ -27,5 +29,30 @@ func CirclePrint(matrix [][]int) {
 		rightLevel--
 		topVertical++
 		downVertical--
+	}
+}
+
+func TupleNums(nums []int, k int) {
+	j := len(nums) - 1
+	i := 0
+	for i < j {
+		if nums[i] >= k {
+			return
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			i++
+			continue
+		}
+
+		value := nums[i] + nums[j]
+		if value > k {
+			j--
+		} else if value < k {
+			i++
+		} else {
+			fmt.Println(nums[i], nums[j])
+			i++
+			j--
+		}
 	}
 }

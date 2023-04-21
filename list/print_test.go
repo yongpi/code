@@ -11,3 +11,7 @@ func TestCirclePrint(t *testing.T) {
 
 	CirclePrint(matrix)
 }
+
+func TestTupleNums(t *testing.T) {
+	TupleNums([]int{-8, -4, -3, 0, 1, 2, 2, 4, 5, 8, 8, 9}, 10)
+}
