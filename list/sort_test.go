@@ -12,3 +12,11 @@ func TestMiniNotSortSubList(t *testing.T) {
 func TestMaxCanMergeSub(t *testing.T) {
 	fmt.Println(MaxCanMergeSub([]int{5, 5, 3, 2, 6, 4, 3}))
 }
+
+func TestSortN(t *testing.T) {
+	fmt.Println(SortN([]int{2, 3, 1, 4, 5}))
+}
+
+func TestSortOddEven(t *testing.T) {
+	fmt.Println(SortOddEven([]int{1, 3, 2, 4, 5}))
+}
