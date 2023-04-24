@@ -26,3 +26,7 @@ func TestMaxSubMatrixSum(t *testing.T) {
 
 	fmt.Println(MaxSubMatrixSum(matrix))
 }
+
+func TestMaxMultiSub(t *testing.T) {
+	fmt.Println(MaxMultiSub([]int{1, 2, 3, -1, 3, -9, 2}))
+}

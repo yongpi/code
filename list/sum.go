@@ -104,3 +104,14 @@ func MaxSubMatrixSum(matrix [][]int) int {
 
 	return ans
 }
+
+func MaxMultiSub(nums []int) int {
+	ans, maxValue, minValue := nums[0], nums[0], nums[0]
+	for i := 1; i < len(nums); i++ {
+		maxValue = Max(Max(maxValue*nums[i], minValue*nums[i]), nums[i])
+		minValue = Min(Min(minValue*nums[i], maxValue*nums[i]), nums[i])
+		ans = Max(maxValue, ans)
+	}
+
+	return ans
+}
