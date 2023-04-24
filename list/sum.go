@@ -1,5 +1,7 @@
 package list
 
+import "math"
+
 func PreSumMaxLen(nums []int, sum int) int {
 	hm := make(map[int]int)
 	hm[0] = -1
@@ -75,6 +77,28 @@ func MaxSubSum(nums []int) int {
 		ans = Max(ans, cur)
 		if cur < 0 {
 			cur = 0
+		}
+	}
+
+	return ans
+}
+
+func MaxSubMatrixSum(matrix [][]int) int {
+	ans := math.MinInt32
+	n, m := len(matrix), len(matrix[0])
+
+	for i := 0; i < n; i++ {
+		tmp := make([]int, m)
+		for j := i; j < n; j++ {
+			var cur int
+			for k := 0; k < m; k++ {
+				tmp[k] += matrix[j][k]
+				cur += tmp[k]
+				ans = Max(ans, cur)
+				if cur < 0 {
+					cur = 0
+				}
+			}
 		}
 	}
 
