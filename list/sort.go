@@ -100,3 +100,22 @@ func SortOddEven(nums []int) []int {
 
 	return nums
 }
+
+func SortZeroOneTwo(nums []int) []int {
+	zero, two := 0, len(nums)-1
+	index := 0
+
+	for index < two {
+		if nums[index] == 0 {
+			nums[index], nums[zero] = nums[zero], nums[index]
+			zero++
+		} else if nums[index] == 2 {
+			nums[index], nums[two] = nums[two], nums[index]
+			two--
+		} else {
+			index++
+		}
+	}
+
+	return nums
+}

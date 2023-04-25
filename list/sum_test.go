@@ -30,3 +30,7 @@ func TestMaxSubMatrixSum(t *testing.T) {
 func TestMaxMultiSub(t *testing.T) {
 	fmt.Println(MaxMultiSub([]int{1, 2, 3, -1, 3, -9, 2}))
 }
+
+func TestNotContainCurMulti(t *testing.T) {
+	fmt.Println(NotContainCurMulti([]int{2, 3, 1, 4}))
+}

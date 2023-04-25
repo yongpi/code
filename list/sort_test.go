@@ -20,3 +20,7 @@ func TestSortN(t *testing.T) {
 func TestSortOddEven(t *testing.T) {
 	fmt.Println(SortOddEven([]int{1, 3, 2, 4, 5}))
 }
+
+func TestSortZeroOneTwo(t *testing.T) {
+	fmt.Println(SortZeroOneTwo([]int{1, 2, 1, 0, 1, 2, 0}))
+}

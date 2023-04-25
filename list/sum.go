@@ -115,3 +115,23 @@ func MaxMultiSub(nums []int) int {
 
 	return ans
 }
+
+func NotContainCurMulti(nums []int) []int {
+	n := len(nums)
+	left := 1
+	right := 1
+	for i := n - 1; i > 0; i-- {
+		right *= nums[i]
+	}
+
+	var ans []int
+	for i := 0; i < n-1; i++ {
+		ans = append(ans, left*right)
+		left = left * nums[i]
+		right = right / nums[i+1]
+	}
+
+	ans = append(ans, left*right)
+
+	return ans
+}
