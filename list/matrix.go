@@ -51,3 +51,45 @@ func MaxSideArea(matrix [][]int) int {
 
 	return ans
 }
+
+func MinPath(matrix [][]int) int {
+	if matrix[0][0] != 1 {
+		return -1
+	}
+
+	return next(matrix, 0, 0, 1)
+}
+
+func next(matrix [][]int, i, j int, path int) int {
+	n, m := len(matrix), len(matrix[0])
+
+	if i < 0 || i >= n || j < 0 || j >= m || matrix[i][j] != 1 {
+		return -1
+	}
+
+	matrix[i][j] = 2
+	if i == n-1 && j == m-1 {
+		return path
+	}
+
+	list := make([]int, 0)
+	list = append(list, next(matrix, i+1, j, path+1))
+	list = append(list, next(matrix, i-1, j, path+1))
+	list = append(list, next(matrix, i, j+1, path+1))
+	list = append(list, next(matrix, i, j-1, path+1))
+
+	ans := -1
+	for _, value := range list {
+		if value == -1 {
+			continue
+		}
+
+		if ans == -1 {
+			ans = value
+		} else {
+			ans = Min(ans, value)
+		}
+	}
+
+	return ans
+}
