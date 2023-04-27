@@ -5,26 +5,39 @@ type CostProfit struct {
 }
 
 func MaxMoney(cost, profit []int, money, choice int) int {
-	costList := make([]*CostProfit, 0)
+	list := make([]*CostProfit, 0)
 	for i, value := range cost {
-		costList = append(costList, &CostProfit{
+		list = append(list, &CostProfit{
 			cost:   value,
 			profit: profit[i],
 		})
 	}
-	initCostHeap(costList)
 
-	ans := 0
-	for choice > 0 && money > 0 {
-		getCostHeap(costList)
+	for choice > 0 && money > 0 && len(list) > 0 {
+		initCostHeap(list)
+		profitList := getCostHeap(list, money)
+		initProfitHeap(profitList)
+
+		item := profitList[0]
+		money += item.profit
+		choice--
+
+		tmp := make([]*CostProfit, 0)
+		for _, value := range list {
+			if item != value {
+				tmp = append(tmp, value)
+			}
+		}
+
+		list = tmp
 	}
-	return ans
 
+	return money
 }
 
 func initCostHeap(list []*CostProfit) {
 	begin := len(list)/2 - 1
-	for i := begin; i < len(list); i++ {
+	for i := begin; i >= 0; i-- {
 		adjustCostHeap(list, i, len(list))
 	}
 }
@@ -47,17 +60,28 @@ func adjustCostHeap(list []*CostProfit, index, limit int) {
 	}
 }
 
-func getCostHeap(list []*CostProfit) (int, []*CostProfit) {
-	value := list[0]
-	list[0] = list[len(list)-1]
-	list = list[:len(list)-1]
-	adjustCostHeap(list, 0, len(list)-1)
-	return value.cost, list
+func getCostHeap(list []*CostProfit, money int) []*CostProfit {
+	ans := make([]*CostProfit, 0)
+	size := len(list)
+
+	for i := 0; i < size; i++ {
+		item := list[0]
+		if item.cost > money {
+			break
+		}
+
+		ans = append(ans, list[0])
+		list[0] = list[size-1]
+		size--
+		adjustCostHeap(list, 0, size)
+	}
+
+	return ans
 }
 
 func initProfitHeap(list []*CostProfit) {
 	begin := len(list)/2 - 1
-	for i := begin; i < len(list); i++ {
+	for i := begin; i >= 0; i-- {
 		adjustProfitHeap(list, i, len(list))
 	}
 }
@@ -78,12 +102,4 @@ func adjustProfitHeap(list []*CostProfit, index, limit int) {
 		list[target], list[index] = list[index], list[target]
 		adjustProfitHeap(list, target, limit)
 	}
-}
-
-func getProfitHeap(list []*CostProfit) (int, []*CostProfit) {
-	value := list[0]
-	list[0] = list[len(list)-1]
-	list = list[:len(list)-1]
-	adjustProfitHeap(list, 0, len(list)-1)
-	return value.profit, list
 }
