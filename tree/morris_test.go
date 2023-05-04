@@ -42,6 +42,8 @@ func TestMorrisPre(t *testing.T) {
 	r6.Right = r7
 
 	MorrisPre(r4)
+
+	MorrisPre2(r4)
 }
 
 func TestMorrisMid(t *testing.T) {

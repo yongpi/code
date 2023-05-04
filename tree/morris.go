@@ -94,3 +94,31 @@ func MorrisMid(root *Tree) {
 		cur = cur.Right
 	}
 }
+
+func MorrisPre2(root *Tree) {
+	cur := root
+	for cur != nil {
+		if cur.Left == nil {
+			fmt.Println(cur.Value)
+			cur = cur.Right
+			continue
+		}
+
+		mostRight := cur.Left
+		for mostRight.Right != nil && mostRight.Right != cur {
+			mostRight = mostRight.Right
+		}
+
+		if mostRight.Right == nil {
+			mostRight.Right = cur
+			fmt.Println(cur.Value)
+			cur = cur.Left
+			continue
+		}
+
+		if mostRight.Right == cur {
+			cur = cur.Right
+			mostRight.Right = nil
+		}
+	}
+}
