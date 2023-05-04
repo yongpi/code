@@ -38,3 +38,37 @@ func max(a, b int) int {
 
 	return b
 }
+
+func MaxSumLevel2(root *Tree, target int) int {
+	hm := make(map[int]int)
+	hm[0] = 0
+	var maxLen int
+
+	var getMaxLen func(root *Tree, level, sum, target int)
+	getMaxLen = func(root *Tree, level, sum, target int) {
+		if root == nil {
+			return
+		}
+
+		sum += root.Value
+		if _, ok := hm[sum]; !ok {
+			hm[sum] = level
+		}
+
+		if data, ok := hm[sum-target]; ok {
+			maxLen = max(maxLen, level-data)
+		}
+
+		getMaxLen(root.Left, level+1, sum, target)
+		getMaxLen(root.Right, level+1, sum, target)
+
+		if data, ok := hm[sum]; ok && data == level {
+			delete(hm, sum)
+		}
+	}
+
+	getMaxLen(root, 1, 0, target)
+
+	return maxLen
+
+}

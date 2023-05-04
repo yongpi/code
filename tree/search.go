@@ -150,3 +150,51 @@ func IsBTSMorris(root *Tree) bool {
 
 	return true
 }
+
+func MaxSearch2(root *Tree) *Tree {
+	var getMaxNode func(node *Tree) *MaxSearchReturnType
+	getMaxNode = func(node *Tree) *MaxSearchReturnType {
+		if node == nil {
+			return nil
+		}
+
+		left := getMaxNode(node.Left)
+		right := getMaxNode(node.Right)
+
+		if left == nil && right != nil && node.Value < right.MinValue {
+			return &MaxSearchReturnType{
+				MaxNode:  node,
+				MaxSize:  right.MaxSize + 1,
+				MaxValue: right.MaxValue,
+				MinValue: node.Value,
+			}
+		}
+
+		if left != nil && right == nil && node.Value > left.MaxValue {
+			return &MaxSearchReturnType{
+				MaxNode:  node,
+				MaxSize:  left.MaxSize + 1,
+				MaxValue: node.Value,
+				MinValue: left.MinValue,
+			}
+		}
+
+		if left != nil && right != nil && node.Value > left.MaxValue && node.Value < right.MinValue {
+			return &MaxSearchReturnType{
+				MaxNode:  node,
+				MaxSize:  left.MaxSize + right.MaxSize + 1,
+				MaxValue: right.MaxValue,
+				MinValue: left.MinValue,
+			}
+		}
+
+		return &MaxSearchReturnType{
+			MaxNode:  node,
+			MaxSize:  1,
+			MaxValue: node.Value,
+			MinValue: node.Value,
+		}
+	}
+
+	return getMaxNode(root).MaxNode
+}

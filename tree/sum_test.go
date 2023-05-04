@@ -30,4 +30,5 @@ func TestMaxSumLevel(t *testing.T) {
 	r5.Right = r9
 
 	fmt.Println(MaxSumLevel(r1, 6))
+	fmt.Println(MaxSumLevel2(r1, 6))
 }

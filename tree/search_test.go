@@ -47,6 +47,8 @@ func TestMaxSearch(t *testing.T) {
 
 	node := MaxSearch(r1)
 	fmt.Println(node.Value)
+
+	fmt.Println(MaxSearch2(r1).Value)
 }
 
 func TestMaxLenSearch(t *testing.T) {
