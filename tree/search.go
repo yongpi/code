@@ -155,44 +155,37 @@ func MaxSearch2(root *Tree) *Tree {
 	var getMaxNode func(node *Tree) *MaxSearchReturnType
 	getMaxNode = func(node *Tree) *MaxSearchReturnType {
 		if node == nil {
-			return nil
+			return &MaxSearchReturnType{
+				MaxNode:  nil,
+				MaxSize:  0,
+				MaxValue: math.MinInt32,
+				MinValue: math.MaxInt32,
+			}
 		}
 
 		left := getMaxNode(node.Left)
 		right := getMaxNode(node.Right)
 
-		if left == nil && right != nil && node.Value < right.MinValue {
-			return &MaxSearchReturnType{
-				MaxNode:  node,
-				MaxSize:  right.MaxSize + 1,
-				MaxValue: right.MaxValue,
-				MinValue: node.Value,
-			}
+		minValue := min(min(left.MinValue, right.MinValue), node.Value)
+		maxValue := max(max(left.MaxValue, right.MaxValue), node.Value)
+		maxNode := left.MaxNode
+		maxSize := left.MaxSize
+
+		if right.MaxSize > left.MaxSize {
+			maxNode = right.MaxNode
+			maxSize = right.MaxSize
 		}
 
-		if left != nil && right == nil && node.Value > left.MaxValue {
-			return &MaxSearchReturnType{
-				MaxNode:  node,
-				MaxSize:  left.MaxSize + 1,
-				MaxValue: node.Value,
-				MinValue: left.MinValue,
-			}
-		}
-
-		if left != nil && right != nil && node.Value > left.MaxValue && node.Value < right.MinValue {
-			return &MaxSearchReturnType{
-				MaxNode:  node,
-				MaxSize:  left.MaxSize + right.MaxSize + 1,
-				MaxValue: right.MaxValue,
-				MinValue: left.MinValue,
-			}
+		if node.Value > left.MaxValue && node.Value < right.MinValue && left.MaxNode == node.Left && right.MaxNode == node.Right {
+			maxNode = node
+			maxSize = left.MaxSize + right.MaxSize + 1
 		}
 
 		return &MaxSearchReturnType{
-			MaxNode:  node,
-			MaxSize:  1,
-			MaxValue: node.Value,
-			MinValue: node.Value,
+			MaxNode:  maxNode,
+			MaxSize:  maxSize,
+			MaxValue: maxValue,
+			MinValue: minValue,
 		}
 	}
 
