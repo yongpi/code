@@ -31,3 +31,21 @@ func ContainTP(node1, node2 *Tree) bool {
 
 	return strings.Contains(str1, str2)
 }
+
+func Contain2(node1, node2 *Tree) bool {
+	var isContain func(n1, n2 *Tree) bool
+
+	isContain = func(n1, n2 *Tree) bool {
+		if n2 == nil {
+			return true
+		}
+
+		if n1 == nil || n1.Value != n2.Value {
+			return false
+		}
+
+		return isContain(n1.Left, n2.Left) && isContain(n1.Right, n2.Right)
+	}
+
+	return isContain(node1, node2) || Contain2(node1.Left, node2) || Contain2(node1.Right, node2)
+}

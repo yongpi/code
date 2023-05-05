@@ -191,3 +191,59 @@ func MaxSearch2(root *Tree) *Tree {
 
 	return getMaxNode(root).MaxNode
 }
+
+func NodeInBST(root, node *Tree) bool {
+	if root == nil {
+		return false
+	}
+
+	if root == node {
+		return true
+	}
+
+	if root.Value < node.Value {
+		return NodeInBST(root.Right, node)
+	}
+
+	return NodeInBST(root.Left, node)
+}
+
+func BSTLen(root *Tree) int {
+	if root == nil {
+		return 0
+	}
+
+	var count int
+	stack := make([]*Tree, 0)
+	stack = append(stack, root)
+
+	for len(stack) > 0 {
+		node := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+
+		if NodeInBST(root, node) {
+			count++
+			if node.Left != nil {
+				stack = append(stack, node.Left)
+			}
+			if node.Right != nil {
+				stack = append(stack, node.Right)
+			}
+		}
+	}
+
+	return count
+}
+
+func MaxLenSearch2(root *Tree) int {
+	if root == nil {
+		return 0
+	}
+
+	count := BSTLen(root)
+	count = max(MaxLenSearch2(root.Left), count)
+	count = max(MaxLenSearch2(root.Right), count)
+
+	return count
+
+}
