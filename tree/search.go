@@ -191,3 +191,29 @@ func MaxSearch2(root *Tree) *Tree {
 
 	return getMaxNode(root).MaxNode
 }
+
+func IsBTSNormal2(root *Tree) bool {
+	stack := make([]*Tree, 0)
+	cur := root
+	var pre *Tree
+
+	for len(stack) > 0 || cur != nil {
+		if cur != nil {
+			stack = append(stack, cur)
+			cur = cur.Left
+			continue
+		}
+
+		node := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+
+		if pre != nil && pre.Value >= node.Value {
+			return false
+		}
+
+		pre = node
+		cur = node.Right
+	}
+
+	return true
+}

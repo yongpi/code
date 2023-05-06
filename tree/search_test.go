@@ -97,6 +97,7 @@ func TestMaxLenSearch(t *testing.T) {
 func TestIsBTSNormal(t *testing.T) {
 	root := BuildPost([]int{2, 1, 3, 6, 5, 7, 4})
 	fmt.Println(IsBTSNormal(root))
+	fmt.Println(IsBTSNormal2(root))
 	fmt.Println(IsBTSMorris(root))
 
 	node2 := &Tree{
@@ -118,4 +119,5 @@ func TestIsBTSNormal(t *testing.T) {
 
 	fmt.Println(IsBTSNormal(node2))
 	fmt.Println(IsBTSMorris(node2))
+	fmt.Println(IsBTSNormal2(node2))
 }

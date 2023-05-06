@@ -26,4 +26,5 @@ func TestIsCBT(t *testing.T) {
 	}
 
 	fmt.Println(IsCBT(node2))
+	fmt.Println(IsCBT2(node2))
 }
