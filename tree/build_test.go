@@ -26,4 +26,5 @@ func TestBuildPostList(t *testing.T) {
 	mid := []int{4, 2, 5, 1, 6, 3, 7}
 
 	fmt.Println(BuildPostList(pre, mid))
+	fmt.Println(BuildPostList2(pre, mid))
 }

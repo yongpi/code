@@ -29,4 +29,5 @@ func TestMaxDistance(t *testing.T) {
 	}
 
 	fmt.Println(MaxDistance(root))
+	fmt.Println(MaxDistance2(root))
 }

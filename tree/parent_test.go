@@ -48,4 +48,5 @@ func TestLastParent(t *testing.T) {
 	r12.Right = r16
 
 	fmt.Println(LastParent(r1, r8, r13))
+	fmt.Println(LastParent2(r1, r8, r13))
 }

@@ -20,3 +20,25 @@ func distanceProcess(node *Tree) (int, int) {
 
 	return height, distance
 }
+
+func MaxDistance2(root *Tree) int {
+	var getDistance func(node *Tree) (int, int)
+	getDistance = func(node *Tree) (int, int) {
+		if node == nil {
+			return 0, 0
+		}
+
+		lh, ld := getDistance(node.Left)
+		rh, rd := getDistance(node.Right)
+
+		height := max(lh, rh) + 1
+		distance := max(ld, rd)
+
+		distance = max(distance, lh+rh+1)
+
+		return height, distance
+	}
+
+	_, ans := getDistance(root)
+	return ans
+}

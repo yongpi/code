@@ -125,3 +125,39 @@ func BuildPost2(nums []int) *Tree {
 
 	return root
 }
+
+func BuildPostList2(pre, mid []int) []int {
+	post := make([]int, len(pre))
+	index := len(pre) - 1
+
+	var makePost func(pre, mid, post []int, ci int) int
+	makePost = func(pre, mid, post []int, ci int) int {
+		if len(pre) == 0 {
+			return ci
+		}
+
+		root := pre[0]
+		post[ci] = root
+		ci--
+
+		if len(pre) == 1 {
+			return ci
+		}
+
+		var leftLen int
+		for i := 0; i < len(mid); i++ {
+			if mid[i] == root {
+				leftLen = i
+				break
+			}
+		}
+
+		ci = makePost(pre[1+leftLen:], mid[leftLen+1:], post, ci)
+		ci = makePost(pre[1:leftLen+1], mid[:leftLen], post, ci)
+
+		return ci
+	}
+
+	makePost(pre, mid, post, index)
+	return post
+}

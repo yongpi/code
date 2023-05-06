@@ -46,4 +46,5 @@ func TestFindSuccessorNode(t *testing.T) {
 	r10.Parent = r6
 
 	fmt.Println(FindSuccessorNode(r9))
+	fmt.Println(FindSuccessorNode2(r9))
 }
