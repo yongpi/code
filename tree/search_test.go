@@ -92,6 +92,7 @@ func TestMaxLenSearch(t *testing.T) {
 	r13.Right = r20
 
 	fmt.Println(MaxLenSearch(r1))
+	fmt.Println(MaxLenSearch2(r1))
 }
 
 func TestIsBTSNormal(t *testing.T) {

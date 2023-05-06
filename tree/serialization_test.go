@@ -52,4 +52,9 @@ func TestSerialization(t *testing.T) {
 	root := Deserialization(ans)
 	fmt.Println(Serialization(root))
 
+	ans = Serialization2(r1)
+	fmt.Println(ans)
+	root = Deserialization2(ans)
+	fmt.Println(Serialization2(root))
+
 }

@@ -53,4 +53,5 @@ func TestContain(t *testing.T) {
 	}
 
 	fmt.Println(Contain(node1, node2))
+	fmt.Println(Contain2(node1, node2))
 }
