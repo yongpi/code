@@ -18,3 +18,32 @@ func balanceProcess(root *Tree) (int, bool) {
 
 	return height, balance
 }
+
+func Balance2(root *Tree) bool {
+	var isBalance func(node *Tree) (bool, int)
+	isBalance = func(node *Tree) (b bool, i int) {
+		if node == nil {
+			return true, 0
+		}
+
+		lb, ll := isBalance(node.Left)
+		rb, rl := isBalance(node.Right)
+
+		var value int
+		if ll > rl {
+			value = ll - rl
+		} else {
+			value = rl - ll
+		}
+
+		nl := max(ll, rl) + 1
+		if lb && rb && value <= 1 {
+			return true, nl
+		}
+
+		return false, nl
+	}
+
+	ans, _ := isBalance(root)
+	return ans
+}

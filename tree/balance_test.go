@@ -24,4 +24,5 @@ func TestBalance(t *testing.T) {
 	}
 
 	fmt.Println(Balance(node2))
+	fmt.Println(Balance2(node2))
 }

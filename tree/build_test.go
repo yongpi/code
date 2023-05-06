@@ -6,8 +6,14 @@ import (
 )
 
 func TestBuildPost(t *testing.T) {
-	root := BuildPost([]int{2, 1, 3, 6, 5, 7, 4})
+	list := []int{2, 1, 3, 6, 5, 7, 4}
+	root := BuildPost(list)
 	fmt.Println(root.Value)
+
+	root2 := BuildPost2(list)
+	fmt.Println(root2.Value)
+
+	fmt.Println(IsPostArray(list))
 }
 
 func TestBuildSearchMid(t *testing.T) {

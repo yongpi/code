@@ -72,3 +72,56 @@ func makePostList(pre, mid, post, stack []int) []int {
 
 	return stack
 }
+
+func IsPostArray(list []int) bool {
+	if len(list) == 0 {
+		return false
+	}
+
+	var mid int
+	root := list[len(list)-1]
+	for i := 0; i < len(list)-1; i++ {
+		if list[i] < root {
+			mid = i
+		} else {
+			break
+		}
+	}
+
+	if mid+1 >= len(list)-1 {
+		return true
+	}
+
+	for i := mid + 1; i < len(list)-1; i++ {
+		if list[i] <= root {
+			return false
+		}
+	}
+
+	return IsPostArray(list[:mid+1]) && IsPostArray(list[mid+1:len(list)-1])
+}
+
+func BuildPost2(nums []int) *Tree {
+	if len(nums) == 0 {
+		return nil
+	}
+
+	root := &Tree{Value: nums[len(nums)-1]}
+	if len(nums) == 1 {
+		return root
+	}
+
+	var mid int
+	for i := 0; i < len(nums)-1; i++ {
+		if nums[i] < root.Value {
+			mid = i
+		} else {
+			break
+		}
+	}
+
+	root.Left = BuildPost2(nums[:mid+1])
+	root.Right = BuildPost2(nums[mid+1 : len(nums)-1])
+
+	return root
+}
