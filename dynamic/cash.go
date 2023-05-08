@@ -136,3 +136,38 @@ func AllCashDynamic(cash []int, money int) int {
 
 	return dp[n-1][money]
 }
+
+func MinCashDynamic2(cash []int, money int) int {
+	n, m := len(cash), money+1
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, m)
+	}
+
+	for i := 1; i < m; i++ {
+		if i%cash[0] == 0 {
+			dp[0][i] = i / cash[0]
+		} else {
+			dp[0][i] = -1
+		}
+	}
+
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			dp[i][j] = -1
+			if dp[i-1][j] != -1 {
+				dp[i][j] = dp[i-1][j]
+			}
+
+			if j >= cash[i] {
+				if dp[i][j] == -1 && dp[i][j-cash[i]] != -1 {
+					dp[i][j] = dp[i][j-cash[i]] + 1
+				} else if dp[i][j] != -1 && dp[i][j-cash[i]] != -1 {
+					dp[i][j] = min(dp[i][j], dp[i][j-cash[i]]+1)
+				}
+			}
+		}
+	}
+
+	return dp[n-1][m-1]
+}

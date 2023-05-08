@@ -50,3 +50,31 @@ func RobotDynamic(n, m, k, p int) int {
 
 	return dp[m][k]
 }
+
+func RobotDynamic2(n, m, k, p int) int {
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, k+1)
+	}
+
+	for i := 0; i < n; i++ {
+		if i == p-1 {
+			dp[i][0] = 1
+		}
+	}
+
+	for j := 1; j <= k; j++ {
+		for i := 0; i < n; i++ {
+			if i == 0 {
+				dp[i][j] = dp[i+1][j-1]
+			} else if i == n-1 {
+				dp[i][j] = dp[i-1][j-1]
+			} else {
+				dp[i][j] = dp[i-1][j-1] + dp[i+1][j-1]
+			}
+		}
+
+	}
+
+	return dp[m-1][k]
+}

@@ -31,6 +31,18 @@ func Fib2(n int) int {
 	return second
 }
 
+func Cow(n int) int {
+	if n <= 0 {
+		return 0
+	}
+
+	if n <= 3 {
+		return n
+	}
+
+	return Cow(n-1) + Cow(n-3)
+}
+
 func Stairs(n int) int {
 	if n <= 0 {
 		return 0
@@ -45,14 +57,16 @@ func Stairs(n int) int {
 	return Stairs(n-1) + Stairs(n-2)
 }
 
-func Cow(n int) int {
-	if n <= 0 {
-		return 0
+func Cow2(n int) int {
+	dp := make([]int, n+1)
+
+	dp[1] = 1
+	dp[2] = 2
+	dp[3] = 3
+
+	for i := 4; i <= n; i++ {
+		dp[i] = dp[i-1] + dp[i-3]
 	}
 
-	if n <= 3 {
-		return n
-	}
-
-	return Cow(n-1) + Cow(n-3)
+	return dp[n]
 }
