@@ -26,3 +26,7 @@ func TestFindExchangeNode(t *testing.T) {
 		fmt.Println(value.Value)
 	}
 }
+
+func TestCountN(t *testing.T) {
+	fmt.Println(CountN(3))
+}
