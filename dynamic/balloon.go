@@ -68,3 +68,35 @@ func BalloonDynamic(balloon []int) int {
 
 	return dp[1][n]
 }
+
+func BalloonDynamic2(balloon []int) int {
+	n := len(balloon)
+	m := n + 2
+	help := make([]int, m)
+	help[0] = 1
+	help[m-1] = 1
+
+	for i := 0; i < n; i++ {
+		help[i+1] = balloon[i]
+	}
+
+	dp := make([][]int, m)
+	for i := 0; i < m; i++ {
+		dp[i] = make([]int, m)
+	}
+
+	for i := 1; i <= n; i++ {
+		dp[i][i] = help[i-1] * help[i] * help[i+1]
+	}
+
+	for j := 2; j <= n; j++ {
+		for i := j; i >= 1; i-- {
+			dp[i][j] = max(help[i-1]*help[i]*help[j+1]+dp[i+1][j], help[i-1]*help[j]*help[j+1]+dp[i][j-1])
+			for k := i + 1; k < j; k++ {
+				dp[i][j] = max(dp[i][j], help[i-1]*help[k]*help[j+1]+dp[i][k-1]+dp[k+1][j])
+			}
+		}
+	}
+
+	return dp[1][n]
+}

@@ -8,4 +8,5 @@ import (
 func TestBalloon(t *testing.T) {
 	fmt.Println(Balloon([]int{4, 2, 3, 5, 1, 6}))
 	fmt.Println(BalloonDynamic([]int{4, 2, 3, 5, 1, 6}))
+	fmt.Println(BalloonDynamic2([]int{4, 2, 3, 5, 1, 6}))
 }
