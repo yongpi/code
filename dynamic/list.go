@@ -120,3 +120,38 @@ func IncrList(nums []int) []int {
 
 	return ans
 }
+
+func MinIncrList2(nums []int) []int {
+	n := len(nums)
+	dp := make([]int, n)
+	dp[0] = 1
+
+	for i := 1; i < n; i++ {
+		dp[i] = 1
+		for j := 0; j < i; j++ {
+			if nums[i] > nums[j] {
+				dp[i] = max(dp[i], dp[j]+1)
+			}
+		}
+	}
+
+	index := 0
+	value := dp[0]
+	for i := 1; i < n; i++ {
+		if dp[i] > value {
+			value = dp[i]
+			index = i
+		}
+	}
+
+	end := dp[index]
+	ans := make([]int, dp[index])
+	for i := index; i >= 0; i-- {
+		if dp[i] == end {
+			end--
+			ans[end] = nums[i]
+		}
+	}
+
+	return ans
+}
