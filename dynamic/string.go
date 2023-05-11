@@ -203,3 +203,63 @@ func ConvertLetter(a string) int {
 
 	return dp[0]
 }
+
+func MaxSubSeq2(a, b string) string {
+	n, m := len(a), len(b)
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, m)
+	}
+
+	if a[0] == b[0] {
+		dp[0][0] = 1
+	}
+
+	for i := 1; i < n; i++ {
+		if a[i] == b[0] {
+			dp[i][0] = 1
+		} else {
+			dp[i][0] = dp[i-1][0]
+		}
+	}
+
+	for i := 1; i < m; i++ {
+		if a[0] == b[i] {
+			dp[0][i] = 1
+		} else {
+			dp[0][i] = dp[0][i-1]
+		}
+	}
+
+	ai, bi, value := 0, 0, dp[0][0]
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+			if a[i] == b[j] {
+				dp[i][j] = max(dp[i][j], dp[i-1][j-1]+1)
+			}
+
+			if dp[i][j] > value {
+				value = dp[i][j]
+				ai = i
+				bi = j
+			}
+		}
+	}
+
+	ans := make([]byte, value)
+	for value > 0 {
+		if ai > 0 && dp[ai-1][bi] == dp[ai][bi] {
+			ai--
+		} else if bi > 0 && dp[ai][bi-1] == dp[ai][bi] {
+			bi--
+		} else {
+			ans[value-1] = a[ai]
+			value--
+			ai--
+			bi--
+		}
+	}
+
+	return string(ans)
+}

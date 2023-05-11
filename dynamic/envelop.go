@@ -43,3 +43,49 @@ func MaxLevelEnvelop(envelops [][2]int) [][2]int {
 
 	return ans
 }
+
+func MaxLevelEnvelop2(envelops [][2]int) [][2]int {
+	sort.Slice(envelops, func(i, j int) bool {
+		if envelops[i][0] < envelops[j][0] {
+			return true
+		}
+
+		if envelops[i][0] == envelops[j][0] {
+			return envelops[i][1] > envelops[j][1]
+		}
+
+		return false
+	})
+
+	n := len(envelops)
+	dp := make([]int, n)
+	dp[0] = 1
+
+	for i := 1; i < n; i++ {
+		dp[i] = 1
+		for j := 0; j < i; j++ {
+			if envelops[i][1] > envelops[j][1] {
+				dp[i] = max(dp[i], dp[j]+1)
+			}
+		}
+	}
+
+	index := 0
+	for i := 1; i < n; i++ {
+		if dp[i] > dp[index] {
+			index = i
+		}
+	}
+
+	ans := make([][2]int, dp[index])
+	end := dp[index]
+
+	for i := index; i >= 0; i-- {
+		if dp[i] == end {
+			ans[end-1] = envelops[i]
+			end--
+		}
+	}
+
+	return ans
+}

@@ -7,6 +7,7 @@ import (
 
 func TestMaxSubSeq(t *testing.T) {
 	fmt.Println(MaxSubSeq("1A2C3D4B56", "B1D23CA45B6A"))
+	fmt.Println(MaxSubSeq2("1A2C3D4B56", "B1D23CA45B6A"))
 }
 
 func TestMaxSubStr(t *testing.T) {
