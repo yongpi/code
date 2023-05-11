@@ -155,3 +155,34 @@ func MinIncrList2(nums []int) []int {
 
 	return ans
 }
+
+func MaxXORSubList2(nums []int) int {
+	n := len(nums)
+	dp := make([]int, n)
+	if nums[0] == 0 {
+		dp[0] = 1
+	}
+
+	sum := make([]int, n)
+	sum[0] = nums[0]
+
+	for i := 1; i < n; i++ {
+		sum[i] = sum[i-1] ^ nums[i]
+	}
+
+	for i := 1; i < n; i++ {
+		for k := i; k > 0; k-- {
+			if sum[k-1] == sum[i] {
+				dp[i] = max(dp[i], dp[k-1]+1)
+			} else {
+				dp[i] = max(dp[i], dp[k-1])
+			}
+		}
+
+		if sum[i] == 0 {
+			dp[i] = max(dp[i], 1)
+		}
+	}
+
+	return dp[n-1]
+}

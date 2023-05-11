@@ -12,6 +12,7 @@ func TestMinIncrList(t *testing.T) {
 
 func TestMaxXORSubList(t *testing.T) {
 	fmt.Println(MaxXORSubList([]int{3, 2, 1, 9, 0, 7, 0, 2, 1, 3}))
+	fmt.Println(MaxXORSubList2([]int{3, 2, 1, 9, 0, 7, 0, 2, 1, 3}))
 }
 
 func TestFirstOrSecond(t *testing.T) {
