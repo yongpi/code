@@ -16,6 +16,7 @@ func TestMaxSubStr(t *testing.T) {
 
 func TestOperateStrCost(t *testing.T) {
 	fmt.Println(OperateStrCost("abc", "adc", 5, 3, 2))
+	fmt.Println(OperateStrCost2("abc", "adc", 5, 3, 2))
 }
 
 func TestIsMix(t *testing.T) {
